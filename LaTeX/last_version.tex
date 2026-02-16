@@ -1,0 +1,41 @@
+% \documentclass{article}
+% \usepackage{graphicx} % Required for inserting images
+% \usepackage{amsmath}
+% \usepackage{mathptmx}
+% \usepackage{xcolor}
+% \usepackage{float}
+
+% \title{CS573: Optimization of Regularized Matrix Factorization for Movie Recommendation Systems}
+% \author{Iliana Platona\\ csdp1436 \and Charalampos Apostolou\\ csdp1415}
+
+% \date{December 14, 2025}
+
+% \begin{document}
+
+% \maketitle
+
+% \section{Description of the project}
+
+% The aim of the project is to analyze and use \textbf{Matrix Factorization (MF)} techniques to solve the ``Matrix Completion Problem'' in the context of recommender systems. The core objective is to predict missing entries in a sparse user-item rating matrix ($R$) and make personalized movie recommendations for users.
+% \\
+% We will formulate this as a non-convex optimization problem where we seek to minimize the regularized squared error between the observed ratings and the dot product of latent user and item feature vectors.
+
+% \section{The Problem}
+% We address the \textbf{Matrix Completion Problem} in the context of collaborative filtering. In real-world recommender systems, the user-item interaction matrix ($R$) is mostly empty because users only rate a tiny fraction of available items. Our goal is to predict these missing entries to recommend relevant items to users and we are going to formulate this as an optimization challenge to find the best low-rank approximation of the rating matrix.
+
+% \section{Methods}
+% We model the problem as a \textbf{non-convex optimization} task and aim to minimize the regularized Squared Error between the observed ratings and the dot product of latent user ($u_i$) and item ($v_j$) feature vectors.
+
+% \noindent \textbf{Objective Function:}
+% \[
+% \min_{U,V} \sum_{(i,j) \in \Omega} (R_{ij} - u_i \cdot v_j^T)^2 + \lambda (||u_i||^2 + ||v_j||^2)
+% \]
+
+% \noindent \textbf{Solver Implementation:}
+% We will implement \textbf{Stochastic Gradient Descent (SGD)} from scratch to solve this objective. The method iterates through observed ratings and updates latent factors proportional to the gradient of the loss function. We will explore hyperparameter tuning, which is the process of investigating the effect of learning rate ($\alpha$) and regularization strength ($\lambda$) on convergence and performance metrics, that are associated with evaluating the model using Root Mean Square Error (RMSE) on a held-out test set.
+
+
+% \section{ Data}
+% We will utilize the \textbf{MovieLens Latest Small Dataset} provided by GroupLens Research. This dataset contains approximately 100,000 ratings contributed by 600 users across 9,000 movies. The raw data is structured in a tabular format consisting of UserID, MovieID, Rating, and Timestamp. For our analysis, we will preprocess this data by converting it into a sparse matrix representation and splitting it into training (80\%) and testing (20\%) sets to validate the performance of our optimization model.
+
+% \end{document}

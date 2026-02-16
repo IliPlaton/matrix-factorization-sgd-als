@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{setspace}
+
+\title{Optimization of Regularized Matrix Factorization\\
+for Movie Recommendation Systems}
+
+\author{Iliana Platona\\csdp1436 \and Charalampos Apostolou\\csdp1415}
+
+\date{\normalsize\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Recommender systems are a core component of modern digital platforms, enabling personalized content delivery to users. A fundamental challenge in such systems is the extreme sparsity of user--item rating matrices, which makes accurate prediction of unseen ratings difficult. In this project, we address the recommendation problem using regularized matrix factorization, framing it as a matrix completion and optimization task. Experiments conducted on the MovieLens Latest Small dataset show that stochastic optimization methods significantly outperform simple baseline predictors.
+\end{abstract}
+
+\section{Introduction}
+User--item interaction data in recommendation systems is typically sparse, as users rate only a small subset of available items. Accurately predicting missing ratings is essential for generating high-quality personalized recommendations. Matrix Factorization (MF) is a widely used approach that models users and items in a shared low-dimensional latent space.
+
+The objective of this project is to learn a low-rank approximation of the rating matrix that minimizes prediction error on unseen data, while controlling overfitting through regularization.
+
+\section{Problem Formulation}
+Let $R \in \mathbb{R}^{m \times n}$ denote the user--item rating matrix, where $m$ is the number of users and $n$ is the number of movies. The matrix is only partially observed; the set $\Omega$ contains the indices of known ratings. The task is to predict the missing entries of $R$.
+
+We formulate the problem as the following optimization objective:
+
+\begin{equation}
+\min_{U,V} \sum_{(i,j) \in \Omega} (R_{ij} - u_i v_j^T)^2 + \lambda (\|u_i\|^2 + \|v_j\|^2)
+\end{equation}
+
+where $U$ and $V$ are the latent user and item factor matrices, $K$ is the latent dimension, and $\\lambda$ is the regularization parameter. In addition, global, user-specific, and item-specific bias terms are included to capture systematic rating behavior.
+
+\section{Methodology}
+We evaluate two optimization strategies:
+
+\begin{itemize}
+  \item \textbf{Stochastic Gradient Descent (SGD):} Model parameters are updated iteratively using individual observed ratings, providing flexibility and fine-grained control over optimization.
+  \item \textbf{Alternating Least Squares (ALS):} User and item factors are optimized alternately by solving least-squares subproblems.
+\end{itemize}
+
+Key hyperparameters include the latent dimension $K$, learning rate $\\alpha$, and regularization coefficient $\lambda$.
+
+\section{Data and Experimental Setup}
+Experiments are conducted using the MovieLens Latest Small dataset, which contains approximately 100,000 ratings from around 600 users on nearly 9,000 movies. The dataset is split into 80\\% training and 20\\% testing sets. Model performance is evaluated using Root Mean Square Error (RMSE).
+
+Baseline methods include a global mean predictor and a column-based (item-average) predictor.
+
+\section{Results and Analysis}
+Results show that SGD converges steadily across different values of the latent dimension $K$. Increasing $K$ improves training accuracy but also increases the risk of overfitting. The observed generalization gap highlights the bias--variance trade-off inherent in model complexity.
+
+Overall, matrix factorization optimized with SGD consistently outperforms baseline predictors and achieves substantially lower RMSE on the test set.
+
+\section{Conclusions}
+This project demonstrates that regularized matrix factorization is an effective approach for sparse recommendation problems. SGD provides strong empirical performance and flexibility, while ALS offers a useful point of comparison despite being less adaptable for extensive hyperparameter tuning.
+
+\section{Future Work}
+Future directions include incorporating implicit feedback, using adaptive learning rates, and developing hybrid recommendation models that combine collaborative and content-based information.
+
+\end{document}
